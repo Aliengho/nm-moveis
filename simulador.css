@@ -1,0 +1,415 @@
+/* ============================================================
+   SIMULADOR 3D — estilos específicos desta página
+   Usa as variáveis definidas em style.css (--ink, --wood, --paper...)
+   ============================================================ */
+
+.simulator-app {
+  padding-top: var(--header-h);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+.sim-toolbar { margin: 12px 16px 0; }
+.sim-painel-projetos { margin: 0 16px 0; }
+
+.simulator-wrap {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 0;
+  align-items: stretch;
+  margin-top: 12px;
+  border-top: 1px solid var(--paper-dim);
+}
+.simulator-wrap[hidden] {
+  display: none;
+}
+
+/* ---------- Barra de ferramentas (estilo app) ------------------- */
+
+.sim-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 14px;
+}
+
+.sim-toolbar-marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+.sim-toolbar-icone { color: var(--wood); display: flex; }
+
+.sim-toolbar-nome {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  color: var(--paper);
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 4px 2px;
+  min-width: 160px;
+}
+.sim-toolbar-nome:focus { outline: none; border-bottom-color: var(--wood); }
+.sim-toolbar-nome::placeholder { color: rgba(242,238,230,0.5); }
+
+.sim-toolbar-abas {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+  min-width: 200px;
+}
+.sim-aba {
+  background: transparent;
+  border: none;
+  color: rgba(242,238,230,0.6);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.sim-aba:hover { color: var(--paper); background: rgba(255,255,255,0.06); }
+.sim-aba.ativa { color: var(--ink); background: var(--paper); font-weight: 600; }
+
+.sim-toolbar-acoes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.sim-btn-outline {
+  background: transparent;
+  color: var(--paper);
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 3px;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.sim-btn-outline:hover { border-color: var(--wood); background: rgba(255,255,255,0.06); }
+.sim-btn-outline.ativo { background: var(--wood); border-color: var(--wood); color: var(--ink); }
+
+.sim-painel-projetos {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: var(--cream);
+  border: 1px solid var(--paper-dim);
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.sim-painel-projetos[hidden] {
+  display: none;
+}
+.sim-painel-projetos select {
+  flex: 1;
+  min-width: 220px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--paper-dim);
+  border-radius: 3px;
+  padding: 9px 10px;
+}
+.sim-painel-projetos .sim-projeto-nota { flex-basis: 100%; margin: 0; }
+
+/* ---------- Barra lateral ------------------------------------- */
+
+.sim-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  background: var(--cream);
+  border-right: 1px solid var(--paper-dim);
+  padding: 22px;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.sim-projeto-linha {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.sim-projeto-linha input,
+.sim-projeto-linha select {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--paper-dim);
+  border-radius: 3px;
+  padding: 7px 8px;
+}
+.sim-btn-largo {
+  flex-shrink: 0;
+  background: var(--ink);
+  color: var(--paper);
+  border: 1px solid var(--ink);
+  border-radius: 3px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background .15s;
+}
+.sim-btn-largo:hover { background: var(--wood-deep); border-color: var(--wood-deep); }
+
+.sim-projeto-nota {
+  font-size: 11px;
+  color: var(--wood-deep);
+  margin: 2px 0 0;
+}
+
+.sim-block h3 {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--wood-deep);
+  margin: 0 0 14px;
+}
+
+.sim-room-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.sim-room-inputs label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--ink-soft);
+}
+.sim-room-inputs input {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--paper);
+  border: 1px solid var(--paper-dim);
+  border-radius: 3px;
+  padding: 8px 10px;
+  width: 100%;
+}
+.sim-room-inputs input:focus { outline: none; border-color: var(--wood); }
+
+.sim-divisao-abas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.sim-divisao-aba {
+  background: var(--paper);
+  border: 1px solid var(--paper-dim);
+  color: var(--ink-soft);
+  border-radius: 3px;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background .15s;
+}
+.sim-divisao-aba:hover { border-color: var(--wood); color: var(--ink); }
+.sim-divisao-aba.ativa { background: var(--ink); border-color: var(--ink); color: var(--paper); font-weight: 500; }
+
+.sim-catalog-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.sim-catalog-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--paper-dim);
+  border-radius: 4px;
+  padding: 10px;
+  cursor: grab;
+  font-family: var(--font-body);
+  transition: border-color .15s, transform .15s, box-shadow .15s;
+}
+.sim-catalog-card:hover { border-color: var(--wood); transform: translateY(-2px); box-shadow: 0 8px 18px rgba(23,20,15,0.08); }
+.sim-catalog-card:active { cursor: grabbing; transform: scale(0.97); }
+
+.sim-card-icone {
+  width: 100%;
+  aspect-ratio: 1.3;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+.sim-card-icone svg { width: 62%; height: 62%; }
+
+.sim-swatch-roupeiro   { background: #A9713F; }
+.sim-swatch-cozinha    { background: #6B4423; }
+.sim-swatch-painel     { background: #C79A5A; }
+.sim-swatch-estante    { background: #8A6A42; }
+.sim-swatch-garrafeira { background: #5C3D24; }
+.sim-swatch-mesa       { background: #9C7748; }
+
+.sim-card-texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.sim-card-texto strong { font-size: 12.5px; color: var(--ink); font-weight: 500; }
+.sim-card-texto em {
+  font-family: var(--font-mono);
+  font-style: normal;
+  font-size: 10px;
+  color: var(--ink-soft);
+}
+
+.sim-block-grow { flex: 1; min-height: 0; }
+
+.sim-placed-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 260px;
+  overflow-y: auto;
+}
+
+.sim-empty {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  padding: 8px 2px;
+}
+
+.sim-placed-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--paper);
+  border: 1px solid var(--paper-dim);
+  border-radius: 3px;
+  padding: 8px 8px 8px 10px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.sim-placed-item:hover { border-color: var(--wood); }
+.sim-placed-item.ativo { border-color: var(--wood); background: #EFE6D6; }
+
+.sim-placed-dot {
+  width: 9px; height: 9px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.sim-placed-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.sim-placed-info strong { font-size: 12.5px; color: var(--ink); font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sim-placed-info span { font-family: var(--font-mono); font-size: 10.5px; color: var(--ink-soft); }
+
+.sim-placed-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.sim-mini-btn {
+  width: 26px; height: 26px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent;
+  border: 1px solid var(--paper-dim);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  transition: border-color .15s, color .15s;
+}
+.sim-mini-btn:hover { border-color: var(--wood); color: var(--wood-deep); }
+.sim-mini-btn.remover:hover { border-color: #a33; color: #a33; }
+
+.sim-hint {
+  font-size: 11px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  margin: 0;
+  padding-top: 4px;
+  border-top: 1px dashed var(--paper-dim);
+}
+
+/* ---------- Canvas 3D -------------------------------------------- */
+
+.sim-canvas-wrap {
+  position: relative;
+  height: 100%;
+  background: linear-gradient(160deg, #E9E2D4, #DCD3C0);
+  overflow: hidden;
+}
+
+#simCanvas { position: absolute; inset: 0; }
+#simCanvas canvas { display: block; width: 100% !important; height: 100% !important; touch-action: none; }
+
+.sim-canvas-acoes {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 5;
+  display: flex;
+  gap: 8px;
+}
+
+.sim-view-toggle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.03em;
+  color: var(--ink);
+  background: rgba(251,249,244,0.9);
+  border: 1px solid var(--paper-dim);
+  border-radius: 3px;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.sim-view-toggle:hover { border-color: var(--wood); background: #fff; }
+.sim-view-toggle.ativo { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.sim-canvas-wrap.sim-drag-ativo { outline: 2px dashed var(--wood); outline-offset: -2px; }
+
+.sim-canvas-badge {
+  position: absolute;
+  left: 16px;
+  bottom: 14px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  background: rgba(251,249,244,0.85);
+  border: 1px solid var(--paper-dim);
+  border-radius: 3px;
+  padding: 5px 10px;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .simulator-app { height: auto; min-height: 100vh; overflow: visible; }
+  .simulator-wrap { grid-template-columns: 1fr; overflow: visible; }
+  .sim-sidebar { height: auto; max-height: 50vh; border-right: none; border-bottom: 1px solid var(--paper-dim); }
+  .sim-canvas-wrap { height: 60vh; }
+}

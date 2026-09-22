@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Serviços — Planga Investimentos, Lda.</title>
-<meta name="description" content="Roupeiros, cozinhas, painéis decorativos e mobiliário personalizado sob medida — serviços de marcenaria da Planga Investimentos, Lda. em Maputo.">
+<title>Simulador 3D — Planga Investimentos, Lda.</title>
+<meta name="description" content="Experimente montar roupeiros, cozinhas e painéis num espaço em 3D — protótipo do simulador de mobiliário da Planga Investimentos, Lda., Maputo.">
 
 <meta name="theme-color" content="#17140F">
 <link rel="apple-touch-icon" href="assets/img/favicon-planga.png">
@@ -13,14 +13,14 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Planga Investimentos, Lda.">
 <meta property="og:locale" content="pt_MZ">
-<meta property="og:title" content="Serviços — Planga Investimentos, Lda.">
-<meta property="og:description" content="Roupeiros, cozinhas, painéis decorativos e mobiliário personalizado sob medida — serviços de marcenaria da Planga Investimentos, Lda. em Maputo.">
+<meta property="og:title" content="Simulador 3D — Planga Investimentos, Lda.">
+<meta property="og:description" content="Experimente montar roupeiros, cozinhas e painéis num espaço em 3D — protótipo do simulador de mobiliário da Planga Investimentos, Lda., Maputo.">
 <meta property="og:image" content="assets/img/og-share.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Serviços — Planga Investimentos, Lda.">
-<meta name="twitter:description" content="Roupeiros, cozinhas, painéis decorativos e mobiliário personalizado sob medida — serviços de marcenaria da Planga Investimentos, Lda. em Maputo.">
+<meta name="twitter:title" content="Simulador 3D — Planga Investimentos, Lda.">
+<meta name="twitter:description" content="Experimente montar roupeiros, cozinhas e painéis num espaço em 3D — protótipo do simulador de mobiliário da Planga Investimentos, Lda., Maputo.">
 <meta name="twitter:image" content="assets/img/og-share.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,6 +29,7 @@
 
 <link rel="icon" type="image/png" sizes="256x256" href="assets/img/favicon-planga.png">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="simulador.css">
 </head>
 <body>
 
@@ -64,95 +65,78 @@
 
 <main>
 
-  <section class="page-hero">
-    <img src="assets/img/cozinha-marmore.jpg" alt="Cozinha em madeira maciça com paredes em mármore, projeto Planga Investimentos, Lda." loading="eager">
-    <div class="page-hero-inner">
-      <p class="eyebrow">Serviços</p>
-      <h1 class="page-hero-title split-title">O que fazemos</h1>
-      <p class="page-hero-desc">De roupeiros a cozinhas completas — cada serviço desenhado à medida do espaço e do orçamento do cliente.</p>
-    </div>
+  <section class="simulator-app">
+
+      <div class="sim-toolbar">
+        <div class="sim-toolbar-marca">
+          <span class="sim-toolbar-icone">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 10.5 12 4l9 6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 9v10h14V9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          <input type="text" id="simNomeProjeto" placeholder="Nome do projeto" class="sim-toolbar-nome">
+        </div>
+
+        <div class="sim-toolbar-abas" role="tablist">
+          <button type="button" class="sim-aba ativa" id="simAbaDesenho" role="tab" aria-selected="true">Desenho</button>
+          <button type="button" class="sim-aba" id="simAbaProjetos" role="tab" aria-selected="false">Projetos guardados</button>
+        </div>
+
+        <div class="sim-toolbar-acoes">
+          <button type="button" class="sim-btn-largo" id="simGuardarProjeto">Guardar</button>
+          <button type="button" class="sim-btn-outline" id="simExportImg">Exportar imagem</button>
+          <button type="button" class="sim-btn-outline" id="simViewToggle">Vista de cima (2D)</button>
+        </div>
+      </div>
+
+      <div class="sim-painel-projetos" id="simPainelProjetos" hidden>
+        <select id="simListaProjetos"><option value="">— nenhum projeto guardado ainda —</option></select>
+        <button type="button" class="sim-btn-largo" id="simCarregarProjeto">Abrir projeto</button>
+        <p class="sim-projeto-nota" id="simProjetoNota" hidden></p>
+      </div>
+
+      <div class="simulator-wrap">
+
+      <aside class="sim-sidebar">
+
+        <div class="sim-block">
+          <h3>Catálogo</h3>
+          <div class="sim-divisao-abas" id="simDivisaoAbas">
+            <button type="button" class="sim-divisao-aba ativa" data-divisao="sala">Sala</button>
+            <button type="button" class="sim-divisao-aba" data-divisao="quarto">Quarto</button>
+            <button type="button" class="sim-divisao-aba" data-divisao="cozinha">Cozinha</button>
+            <button type="button" class="sim-divisao-aba" data-divisao="banho">Casa de banho</button>
+          </div>
+          <div class="sim-catalog sim-catalog-grid" id="simCatalog"></div>
+        </div>
+
+        <div class="sim-block sim-block-grow">
+          <h3>Módulos na casa</h3>
+          <ul class="sim-placed-list" id="simPlacedList">
+            <li class="sim-empty" id="simEmpty">Ainda não adicionou nenhum módulo.</li>
+          </ul>
+        </div>
+
+        <p class="sim-hint">Arraste do catálogo para qualquer divisão, ou clique para adicionar à sala · arraste um módulo já colocado para o mover dentro da mesma divisão · arraste fora dos módulos para rodar a câmara</p>
+
+      </aside>
+
+      <div class="sim-canvas-wrap">
+        <div id="simCanvas"></div>
+        <span class="sim-canvas-badge">Protótipo — medidas aproximadas</span>
+      </div>
+
+      </div>
+
   </section>
 
-  <!-- ================= BLOCOS PRINCIPAIS ================= -->
-  <div class="services-list">
-
-    <article class="service-row reveal">
-      <div class="service-media"><img src="assets/img/roupeiro-branco.jpg" alt="Roupeiro branco sob medida" loading="lazy"></div>
-      <div class="service-content">
-        <span class="service-index">01 · Roupeiros</span>
-        <h3>Roupeiros personalizados</h3>
-        <p>Organização desenhada à medida do espaço e do dono da casa — do closet compacto ao roupeiro de quarto principal, com gavetas, prateleiras e cabides internos.</p>
-      </div>
-    </article>
-
-    <article class="service-row service-row--reverse reveal">
-      <div class="service-media"><img src="assets/img/cozinha-ilha.jpg" alt="Cozinha planeada com ilha central em madeira" loading="lazy"></div>
-      <div class="service-content">
-        <span class="service-index">02 · Cozinhas</span>
-        <h3>Cozinhas planeadas</h3>
-        <p>Cozinhas com fluxo, arrumação e acabamento pensados para o dia a dia da família — de armários suspensos a ilhas centrais em madeira maciça.</p>
-      </div>
-    </article>
-
-    <article class="service-row reveal">
-      <div class="service-media"><img src="assets/img/painel-decorativo.jpg" alt="Painel de madeira decorativo com iluminação embutida" loading="lazy"></div>
-      <div class="service-content">
-        <span class="service-index">03 · Painéis &amp; estantes</span>
-        <h3>Painéis e estantes decorativas</h3>
-        <p>Revestimentos, painéis ripados e estantes modulares que se integram na parede e na decoração, com ou sem iluminação embutida.</p>
-      </div>
-    </article>
-
-    <article class="service-row service-row--reverse reveal">
-      <div class="service-media"><img src="assets/img/estante-luxo.jpg" alt="Móvel personalizado em mármore com acabamento de luxo" loading="lazy"></div>
-      <div class="service-content">
-        <span class="service-index">04 · Personalizados</span>
-        <h3>Mobiliário personalizado</h3>
-        <p>Peças únicas para necessidades específicas — balcões, receções e móveis de destaque com acabamento de alto padrão.</p>
-      </div>
-    </article>
-
-    <!-- ================= SERVIÇOS COMPACTOS ================= -->
-    <div class="services-compact">
-
-      <div class="service-compact-card reveal">
-        <span class="compact-mark">05</span>
-        <h4>Garrafeiras e despensas</h4>
-        <p>Módulos com prateleiras extraíveis para arrumação de garrafas, louça e mantimentos.</p>
-      </div>
-
-      <div class="service-compact-card reveal">
-        <span class="compact-mark">06</span>
-        <h4>Mesas e outros móveis</h4>
-        <p>Mesas de jantar, centro e apoio, em madeira maciça, feitas à medida do espaço.</p>
-      </div>
-
-      <div class="service-compact-card reveal">
-        <span class="compact-mark">07</span>
-        <h4>Medição e projecto</h4>
-        <p>Visita técnica, medição precisa e proposta desenhada antes de qualquer fabricação.</p>
-      </div>
-
-      <div class="service-compact-card reveal">
-        <span class="compact-mark">08</span>
-        <h4>Manutenção e reparos</h4>
-        <p>Restauro e reparação de móveis existentes para prolongar a sua vida útil.</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- ================= CTA ================= -->
   <section class="contact-cta">
-    <img src="assets/img/garrafeira.jpg" alt="Garrafeira em madeira sob medida, projeto Planga Investimentos, Lda." loading="lazy">
+    <img src="assets/img/roupeiro-embrulhado.jpg" alt="Roupeiro Planga Investimentos, Lda. em fase de acabamento no atelier" loading="lazy">
     <div class="container contact-cta-inner reveal">
-      <p class="eyebrow eyebrow--light">Qual o próximo passo?</p>
-      <h2 class="contact-cta-title">Peça uma medição sem compromisso</h2>
-      <p class="contact-cta-text">Descreva o serviço que precisa pelo WhatsApp — respondemos com uma proposta inicial em pouco tempo.</p>
+      <p class="eyebrow eyebrow--light">Gostou do que montou?</p>
+      <h2 class="contact-cta-title">Transforme isto num projeto real</h2>
+      <p class="contact-cta-text">Envie uma captura de ecrã do que montou pelo WhatsApp — usamos como ponto de partida para a medição e o orçamento.</p>
       <div class="contact-cta-actions">
         <a href="https://wa.me/258873429456" target="_blank" rel="noopener" class="btn btn-primary"><svg class="icon-inline" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Pedir orçamento</a>
-        <a href="projetos.html" class="btn btn-outline btn-outline--light">Ver projetos feitos</a>
+        <a href="servicos.html" class="btn btn-outline btn-outline--light">Ver serviços</a>
       </div>
     </div>
   </section>
@@ -192,5 +176,8 @@
 <button class="to-top" id="to-top" aria-label="Voltar ao topo">↑</button>
 
 <script src="script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="simulador.js"></script>
 </body>
 </html>
